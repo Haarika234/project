@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Sign Up - My Django App
+{% endblock %}
+
+{% block body_block %}
+  <!-- Main Signup Form -->
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row w-100">
+      <div class="col-md-8 col-lg-6 mx-auto">
+        <div class="card shadow-lg border-0 rounded-lg">
+          <div class="card-body p-5">
+            <h3 class="text-center mb-4">Create Your Account</h3>
+            <form method="POST">
+              {% csrf_token %}
+              
+              <!-- Full Name Field -->
+              <div class="mb-3">
+                <label for="id_name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="id_name" name="name" required />
+              </div>
+
+              <!-- Email Address Field -->
+              <div class="mb-3">
+                <label for="id_email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="id_email" name="email" required />
+              </div>
+
+              <!-- Username Field -->
+              <div class="mb-3">
+                <label for="id_username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="id_username" name="username" required />
+              </div>
+
+              <!-- Phone Number Field -->
+              <div class="mb-3">
+                <label for="id_phone_number" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="id_phone_number" name="phone_number" required />
+              </div>
+
+              <!-- Password Field -->
+              <div class="mb-3 position-relative">
+                <label for="id_password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="id_password" name="password" required />
+                <i class="fa fa-eye-slash" id="password-toggle" onclick="togglePasswordVisibility()" style="cursor: pointer; position: absolute; right: 15px; top: 35px;"></i>
+              </div>
+
+              <!-- Confirm Password Field -->
+              <div class="mb-4 position-relative">
+                <label for="id_confirm_password" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="id_confirm_password" name="confirm_password" required />
+                <i class="fa fa-eye-slash" id="confirm-password-toggle" onclick="toggleConfirmPasswordVisibility()" style="cursor: pointer; position: absolute; right: 15px; top: 35px;"></i>
+              </div>
+
+              <!-- Signup Button -->
+              <div class="d-flex justify-content-center mb-3">
+                <button type="submit" class="btn btn-primary w-100 py-2">Sign Up</button>
+              </div>
+
+              <!-- Already have an account? -->
+              <div class="text-center">
+                <p class="mb-0">
+                  Already have an account? <a href="{% url 'accounts:login' %}" class="text-primary">Login</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <!-- Password Visibility Toggle Script -->
+  <script>
+    function togglePasswordVisibility() {
+      var passwordField = document.getElementById('id_password');
+      var toggleIcon = document.getElementById('password-toggle');
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+      } else {
+        passwordField.type = 'password';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+      }
+    }
+
+    function toggleConfirmPasswordVisibility() {
+      var confirmPasswordField = document.getElementById('id_confirm_password');
+      var toggleIcon = document.getElementById('confirm-password-toggle');
+      if (confirmPasswordField.type === 'password') {
+        confirmPasswordField.type = 'text';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+      } else {
+        confirmPasswordField.type = 'password';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+      }
+    }
+  </script>
+{% endblock %}
+
+{% block css_block %}
+  <!-- Custom Styles for Sign Up Form -->
+  <style>
+    body {
+      background-color: #f4f7fa;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .card {
+      border-radius: 20px;
+      margin: 0 auto;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+    }
+
+    .card-body {
+      padding: 3rem;
+    }
+
+    h3 {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .form-control {
+      border-radius: 12px;
+      border: 1px solid #ced4da;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      height: 45px;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #333;
+      font-size: 1.1rem;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: bold;
+      padding: 14px;
+      height: 45px;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #004085;
+    }
+
+    .is-invalid {
+      border-color: #dc3545;
+    }
+
+    .invalid-feedback {
+      font-size: 0.875rem;
+      color: #dc3545;
+    }
+
+    .text-center a {
+      color: #007bff;
+      font-weight: 600;
+    }
+
+    .text-center a:hover {
+      text-decoration: none;
+      color: #0056b3;
+    }
+
+    #password-toggle, #confirm-password-toggle {
+      font-size: 1.25rem;
+      color: #6c757d;
+      position: absolute;
+      right: 15px;
+      top: 35px;
+    }
+
+    #password-toggle:hover, #confirm-password-toggle:hover {
+      color: #007bff;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .container {
+      max-width: 100%;
+      padding: 0 15px;
+    }
+
+    .card {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .card-body {
+        padding: 2rem;
+      }
+
+      .btn-primary {
+        font-size: 1.1rem;
+      }
+
+      h3 {
+        font-size: 1.75rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .card-body {
+        padding: 1.5rem;
+      }
+
+      .btn-primary {
+        font-size: 1rem;
+        padding: 12px;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+{% endblock %}
